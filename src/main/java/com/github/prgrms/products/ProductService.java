@@ -11,22 +11,27 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Service
 public class ProductService {
 
-  private final ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-  public ProductService(ProductRepository productRepository) {
-    this.productRepository = productRepository;
-  }
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
-  @Transactional(readOnly = true)
-  public Optional<Product> findById(Long productId) {
-    checkNotNull(productId, "productId must be provided");
+    @Transactional(readOnly = true)
+    public Optional<Product> findById(Long productId) {
+        checkNotNull(productId, "productId must be provided");
 
-    return productRepository.findById(productId);
-  }
+        return productRepository.findById(productId);
+    }
 
-  @Transactional(readOnly = true)
-  public List<Product> findAll() {
-    return productRepository.findAll();
-  }
+    @Transactional(readOnly = true)
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
+
+    public void plusReviewCount(Long id) {
+        checkNotNull(id, "productId must be provided");
+        productRepository.updateReviewCount(id);
+    }
 
 }

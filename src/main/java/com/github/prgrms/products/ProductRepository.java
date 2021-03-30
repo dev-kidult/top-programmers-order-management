@@ -9,4 +9,6 @@ public interface ProductRepository {
 
   List<Product> findAll();
 
+  void updateReviewCount(long id);
+
 }

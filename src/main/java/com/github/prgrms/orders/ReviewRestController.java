@@ -1,10 +1,21 @@
 package com.github.prgrms.orders;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+import com.github.prgrms.security.JwtAuthentication;
+import com.github.prgrms.utils.ApiUtils.ApiResult;
 
 @RestController
 @RequestMapping("api/orders")
 public class ReviewRestController {
-  // TODO review 메소드 구현이 필요합니다.
+    private final ReviewService reviewService;
+
+    public ReviewRestController(ReviewService reviewService) {this.reviewService = reviewService;}
+
+    @PostMapping("/{id}/review")
+    public ApiResult<ReviewDto> review(@AuthenticationPrincipal JwtAuthentication authentication, @PathVariable Long id,
+            @RequestBody ReviewRequest request) {
+        return reviewService.review(authentication.id, id, request.getContent());
+    }
 }
