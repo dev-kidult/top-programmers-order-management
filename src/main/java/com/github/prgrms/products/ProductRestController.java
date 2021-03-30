@@ -21,7 +21,7 @@ public class ProductRestController {
   }
 
   // FIXME `요건 1` 정의에 맞게 응답 타입 수정이 필요합니다.
-  @GetMapping(path = "{id}")
+  @GetMapping(path = "/{id}")
   public ProductDto findById(@PathVariable Long id) {
     return productService.findById(id)
       .map(ProductDto::new)
